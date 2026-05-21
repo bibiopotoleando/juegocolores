@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Dado Party</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        background:#111;
+        font-family:Arial, sans-serif;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+    }
+
+    .container{
+        text-align:center;
+    }
+
+    .dice{
+        width:220px;
+        height:220px;
+        border-radius:35px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        cursor:pointer;
+        transition:0.25s;
+        user-select:none;
+        box-shadow:
+            0 0 25px rgba(0,0,0,0.4),
+            inset 0 0 15px rgba(255,255,255,0.15);
+        animation:none;
+    }
+
+    .dice:hover{
+        transform:scale(1.03);
+    }
+
+    .emoji{
+        font-size:70px;
+        margin-bottom:10px;
+    }
+
+    .title{
+        font-size:28px;
+        font-weight:bold;
+        color:white;
+        text-shadow:0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .subtitle{
+        margin-top:8px;
+        font-size:16px;
+        color:white;
+        opacity:0.9;
+    }
+
+    .info{
+        margin-top:25px;
+        color:#ccc;
+        font-size:15px;
+        opacity:0.8;
+    }
+
+    @keyframes shake{
+        0% { transform: rotate(0deg) scale(1); }
+        20% { transform: rotate(-8deg) scale(1.05); }
+        40% { transform: rotate(8deg) scale(1.05); }
+        60% { transform: rotate(-8deg) scale(1.05); }
+        80% { transform: rotate(8deg) scale(1.05); }
+        100% { transform: rotate(0deg) scale(1); }
+    }
+
+    .rolling{
+        animation:shake 0.7s ease;
+    }
+
+    @media (max-width:600px){
+
+        .dice{
+            width:180px;
+            height:180px;
+        }
+
+        .emoji{
+            font-size:55px;
+        }
+
+        .title{
+            font-size:24px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="dice" id="dice" onclick="rollDice()">
+        <div class="emoji">🎲</div>
+        <div class="title">Púlsame</div>
+        <div class="subtitle">Tirar dado</div>
+    </div>
+
+    <div class="info">
+        Cada color tiene la misma probabilidad
+    </div>
+
+</div>
+
+<script>
+
+const categories = [
+
+    {
+        color:"#3CB371",
+        emoji:"🟢",
+        title:"TRIVIA",
+        subtitle:"Viajes"
+    },
+
+    {
+        color:"#E53935",
+        emoji:"🔴",
+        title:"PALABRAS",
+        subtitle:"Adivina"
+    },
+
+    {
+        color:"#8E44AD",
+        emoji:"🟣",
+        title:"CANCIONES",
+        subtitle:"Música"
+    },
+
+    {
+        color:"#F4C542",
+        emoji:"🟡",
+        title:"DIXIT",
+        subtitle:"Creatividad"
+    },
+
+    {
+        color:"#3498DB",
+        emoji:"🔵",
+        title:"DECISIONES",
+        subtitle:"Qué prefieres"
+    },
+
+    {
+        color:"#FF69B4",
+        emoji:"🩷",
+        title:"CAOS",
+        subtitle:"Bebe y diviértete"
+    }
+
+];
+
+const dice = document.getElementById("dice");
+
+function rollDice(){
+
+    dice.classList.remove("rolling");
+
+    void dice.offsetWidth;
+
+    dice.classList.add("rolling");
+
+    setTimeout(() => {
+
+        const random =
+            Math.floor(Math.random() * categories.length);
+
+        const result = categories[random];
+
+        dice.style.background = result.color;
+
+        dice.innerHTML = `
+            <div class="emoji">${result.emoji}</div>
+            <div class="title">${result.title}</div>
+            <div class="subtitle">${result.subtitle}</div>
+        `;
+
+    }, 650);
+}
+
+</script>
+
+</body>
+</html>
